@@ -6,6 +6,9 @@
 #include <sys/wait.h>
 /**
  * main - shell
+ * @ac: number of command line items
+ * @av: pointer to command line arguments
+ * @env: strings of environmet variables
  * Return: 0
  */
 int main(int ac, char **av __attribute__((unused)), char **env)
