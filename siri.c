@@ -15,7 +15,6 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 {
 	char str[512];
 	int gtline = 0;
-	int access_file = 0;
 	int pid = 0;
 	char *arrs[] = {NULL, NULL};
 
