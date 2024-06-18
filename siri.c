@@ -20,7 +20,8 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "[==>", 4);
+		if (ac != 1)
+			write(STDOUT_FILENO, "[==>", 4);
 		gtline = read(STDIN_FILENO, str, 512);
 		if (gtline <= 0 || str[0] == '\n' || ac > 2)
 		{
