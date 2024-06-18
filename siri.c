@@ -48,6 +48,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				else
 				{
 					wait(NULL);
+					free(arrs[0]);
 				}
 			}
 		}
