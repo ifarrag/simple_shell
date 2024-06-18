@@ -42,7 +42,6 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				if (pid == 0)
 				{
 					execve(arrs[0], arrs, env);
-					write(1, arrs[0], 4);
 				}
 				else
 				{
@@ -50,6 +49,8 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				}
 			}
 		}
+		if (ac == 1)
+			break;
 	}
 	return (0);
 }
