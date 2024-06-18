@@ -35,7 +35,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 			arrs[0] = new_av(str);
 			if (access(arrs[0], X_OK) == -1)
 			{
-				write(STDOUT_FILENO, "./siri: No such file or directory\n", 34);
+				write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
 			}
 			else
 			{
