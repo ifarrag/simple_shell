@@ -43,6 +43,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				if (pid == 0)
 				{
 					execve(arrs[0], arrs, env);
+					free(arrs);
 				}
 				else
 				{
