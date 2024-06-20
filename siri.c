@@ -17,7 +17,6 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 	char **arrs;
 	int gtline = 0;
 	int pid = 0, w = 0;
-	int access_f = 0;
 	char *new_arr[] = {NULL, NULL};
 
 	while (1)
