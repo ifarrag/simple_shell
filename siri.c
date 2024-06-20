@@ -40,15 +40,16 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				if (access(arrs[w], X_OK) ==  -1)
 				{
 					if (w == 0)
+					{
 					write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
+					}
 				}
 				else
 				{
-					new_arr[0] = arrs[w];
 					pid = fork();
 					if (pid == 0)
 					{
-						execve(new_arr[0], new_arr, env);
+						execve(arrs[0], arrs, env);
 					}
 					else
 					{
