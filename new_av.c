@@ -24,7 +24,7 @@ char **new_av(char *str)
 	arrs = malloc(sizeof(char*) * (e));
 	e = 0;
 	w = 0;
-	for (n = 0; str[n] != 0; n++)
+	for (n = 0; str[n] != '\0'; n++)
 	{
 		if (str[n] != 10 && str[n] != 32)
 			h = 1;
@@ -56,9 +56,9 @@ char **new_av(char *str)
 		{
 			w++;
 			h = 0;
+			e = 0;
 		}
 		n++;
 	}
-	printf("arr: %s\n",arrs[0]);
 	return (arrs);
 }

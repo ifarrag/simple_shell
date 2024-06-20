@@ -33,30 +33,30 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 		}
 		else
 		{
+			str[gtline] = '\0';
 			arrs = new_av(str);
-			if (access(arrs[0], X_OK) ==  -1)
+			w = 0;
+			while (arrs[w] != NULL)
 			{
-				write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
-			}
-			else
-			{
-				new_arr[0] = arrs[0];
-exe_again:
-				pid = fork();
-				if (pid == 0)
+				if (access(arrs[w], X_OK) ==  -1)
 				{
-					execve(new_arr[0], new_arr, env);
+					if (w == 0)
+					write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
 				}
 				else
 				{
-					wait(NULL);
-					w++;
-					if (arrs[w] != NULL)
+					new_arr[0] = arrs[w];
+					pid = fork();
+					if (pid == 0)
 					{
-						new_arr[0] = arrs[w];
-						goto exe_again;
+						execve(new_arr[0], new_arr, env);
+					}
+					else
+					{
+						wait(NULL);
 					}
 				}
+				w++;
 			}
 			w = 0;
 			while (arrs[w] != NULL)
@@ -66,6 +66,8 @@ exe_again:
 			}
 			free(arrs);
 		}
+		if (isatty(STDIN_FILENO) == 0)
+			break;
 	}
 	return (0);
 }
