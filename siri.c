@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 /**
  * main - shell
  * @ac: number of command line items
@@ -18,6 +19,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 	int gtline = 0;
 	int pid = 0, w = 0;
 	char *new_arr[] = {NULL, NULL};
+	struct stat st;
 
 	while (1)
 	{
@@ -37,6 +39,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 			w = 0;
 			while (arrs[w] != NULL)
 			{
+				stat(arrs[w + 1], &st);
 				if (access(arrs[w], X_OK) ==  -1)
 				{
 					if (w == 0)
@@ -49,10 +52,9 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					pid = fork();
 					if (pid == 0)
 					{
-						if ((access(arrs[w + 1], X_OK) == -1) && arrs[w + 1] != NULL)
+						if (!S_ISREG(st.st_mode))
 						{
 							execve(arrs[0], arrs, env);
-							break;
 						}
 						else
 						{
