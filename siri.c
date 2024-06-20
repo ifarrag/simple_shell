@@ -52,6 +52,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 						if ((access(arrs[w + 1], X_OK) == -1) && arrs[w + 1] != NULL)
 						{
 							execve(arrs[0], arrs, env);
+							break;
 						}
 						else
 						{
