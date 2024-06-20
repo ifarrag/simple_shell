@@ -14,13 +14,15 @@
 int main(int ac, char **av __attribute__((unused)), char **env)
 {
 	char str[512];
+	char **arrs;
 	int gtline = 0;
-	int pid = 0;
-	char *arrs[] = {NULL, NULL};
+	int pid = 0, w = 0;
+	int access_f = 0;
+	char *new_arr[] = {NULL, NULL};
 
 	while (1)
 	{
-		if (ac != 1)
+		if(isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO, "[==>", 4);
 		gtline = read(STDIN_FILENO, str, 512);
 		if (gtline <= 0 || str[0] == '\n' || ac > 2)
@@ -31,29 +33,39 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 		}
 		else
 		{
-			str[gtline - 1] = '\0';
-			arrs[0] = new_av(str);
-			if (access(arrs[0], X_OK) == -1)
+			arrs = new_av(str);
+			if (access(arrs[0], X_OK) ==  -1)
 			{
 				write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
 			}
 			else
 			{
+				new_arr[0] = arrs[0];
+exe_again:
 				pid = fork();
 				if (pid == 0)
 				{
-					execve(arrs[0], arrs, env);
-					free(arrs[0]);
+					execve(new_arr[0], new_arr, env);
 				}
 				else
 				{
 					wait(NULL);
-					free(arrs[0]);
+					w++;
+					if (arrs[w] != NULL)
+					{
+						new_arr[0] = arrs[w];
+						goto exe_again;
+					}
 				}
 			}
+			w = 0;
+			while (arrs[w] != NULL)
+			{
+				free(arrs[w]);
+				w++;
+			}
+			free(arrs);
 		}
-		if (ac == 1)
-			break;
 	}
 	return (0);
 }
