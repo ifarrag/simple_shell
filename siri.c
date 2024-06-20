@@ -66,7 +66,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					else
 					{
 						wait(NULL);
-						if (!S_ISREG(st.mode))
+						if (!S_ISREG(st.st_mode))
 							break;
 					}
 				}
