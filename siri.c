@@ -53,7 +53,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					pid = fork();
 					if (pid == 0)
 					{
-						if (!S_ISREG(st.st_mode))
+						if (arrs[w + 1] != NULL && !S_ISREG(st.st_mode))
 						{
 							execve(arrs[0], arrs, env);
 						}
@@ -66,7 +66,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					else
 					{
 						wait(NULL);
-						if (!S_ISREG(st.st_mode))
+						if (arrs[w + 1] != NULL && !S_ISREG(st.st_mode))
 							break;
 					}
 				}
