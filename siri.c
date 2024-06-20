@@ -49,7 +49,15 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					pid = fork();
 					if (pid == 0)
 					{
-						execve(arrs[0], arrs, env);
+						if (access(arrs[w + 1], X_OK) == -1)
+						{
+							execve(arrs[0], arrs, env);
+						}
+						else
+						{
+							new_arr[0] = arrs[w];
+							execve(new_arr[0], new_arr, env);
+						}
 					}
 					else
 					{
