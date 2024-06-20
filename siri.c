@@ -39,7 +39,8 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 			w = 0;
 			while (arrs[w] != NULL)
 			{
-				stat(arrs[w + 1], &st);
+				if (arrs[w + 1] != NULL)
+					stat(arrs[w + 1], &st);
 				if (access(arrs[w], X_OK) ==  -1)
 				{
 					if (w == 0)
