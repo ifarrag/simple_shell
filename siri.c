@@ -17,7 +17,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 	char str[512];
 	char **arrs;
 	int gtline = 0;
-	int pid = 0, w = 0;
+	int pid = 0, w = 0, isfile = 0;
 	char *new_arr[] = {NULL, NULL};
 	struct stat st;
 
@@ -40,7 +40,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 			while (arrs[w] != NULL)
 			{
 				if (arrs[w + 1] != NULL)
-					stat(arrs[w + 1], &st);
+					isfile = stat(arrs[w + 1], &st);
 				if (access(arrs[w], X_OK) ==  -1)
 				{
 					if (w == 0)
@@ -53,21 +53,29 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					pid = fork();
 					if (pid == 0)
 					{
-						if (arrs[w + 1] != NULL && !S_ISREG(st.st_mode))
+						if (isfile = 0)
 						{
-							execve(arrs[0], arrs, env);
+							if (S_ISREG(st.st_mode))
+							{
+								new_arr[0] = arrs[w];
+								execve(new_arr[0], new_arr, env);
+							}
+							else
+							{
+								execve(arrs[w], arrs, env);
+							}
 						}
 						else
 						{
-							new_arr[0] = arrs[w];
-							execve(new_arr[0], new_arr, env);
+							execve(arrs[w], arrs, env);
 						}
 					}
 					else
 					{
 						wait(NULL);
-						if (arrs[w + 1] != NULL && !S_ISREG(st.st_mode))
-							break;
+						if (arrs[w + 1] != NULL && isfile == 0)
+							if (!S_ISREG(st.st_mode))
+								break;
 					}
 				}
 				w++;
