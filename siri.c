@@ -53,7 +53,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					pid = fork();
 					if (pid == 0)
 					{
-						if (isfile = 0)
+						if (isfile == 0)
 						{
 							if (S_ISREG(st.st_mode))
 							{
