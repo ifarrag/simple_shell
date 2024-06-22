@@ -16,7 +16,6 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 {
 	char str[512];
 	char **arrs;
-	char *svr;
 	int gtline = 0;
 	int pid = 0, w = 0, isfile = 0;
 	char *new_arr[] = {NULL, NULL};
@@ -74,7 +73,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					else
 					{
 						wait(NULL);
-						if (arrs[w + 1] != NULL && isfile == 0 && str != NULL)
+						if (arrs[w + 1] != NULL && isfile == 0)
 							if (!S_ISREG(st.st_mode))
 								break;
 					}
