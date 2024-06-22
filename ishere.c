@@ -14,6 +14,8 @@ char *ishere(char *str, char **env)
 	char *s = "PATH=";
 	char *arr;
 
+	if (env == NULL)
+		write(STDERR_FILENO, "./siri: No such file_or_directory\n", 34);
 	while (env[i])
 	{
 		ii = 0;
