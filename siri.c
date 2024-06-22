@@ -16,6 +16,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 {
 	char str[512];
 	char **arrs;
+	char *svr;
 	int gtline = 0;
 	int pid = 0, w = 0, isfile = 0;
 	char *new_arr[] = {NULL, NULL};
@@ -35,7 +36,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 		else
 		{
 			str[gtline] = '\0';
-			arrs = new_av(str);
+			arrs = new_av(str, env);
 			w = 0;
 			while (arrs[w] != NULL)
 			{
@@ -73,7 +74,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 					else
 					{
 						wait(NULL);
-						if (arrs[w + 1] != NULL && isfile == 0)
+						if (arrs[w + 1] != NULL && isfile == 0 && str != NULL)
 							if (!S_ISREG(st.st_mode))
 								break;
 					}

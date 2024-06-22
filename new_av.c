@@ -1,13 +1,15 @@
 #include <stdlib.h>
+#include "main.h"
 #include <stdio.h>
 /**
  * new_av - allocate new string
  * @str: the input string
  * Return: New allocated str
  */
-char **new_av(char *str)
+char **new_av(char *str, char **env)
 {
 	char **arrs;
+	char *anr;
 	int i = 0, n = 0, w = 0, e = 1, h = 0;
 
 	while (str[i])
@@ -59,6 +61,17 @@ char **new_av(char *str)
 			e = 0;
 		}
 		n++;
+	}
+	i = 0;
+	while (arrs[i] != NULL)
+	{
+		anr = ishere(arrs[i], env);
+		if (anr != NULL)
+		{
+			free(arrs[i]);
+			arrs[i] = anr;
+		}
+		i++;
 	}
 	return (arrs);
 }
