@@ -45,7 +45,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 				{
 					if (w == 0)
 					{
-					write(STDOUT_FILENO, "./siri: No such file_or_directory\n", 34);
+					write(STDERR_FILENO, "./siri: No such file_or_directory\n", 34);
 					}
 				}
 				else
