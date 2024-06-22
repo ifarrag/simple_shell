@@ -35,7 +35,7 @@ char *ishere(char *str, char **env)
 			m = 0;
 			while (env[i][n] == ':')
 				n++;
-			arr = malloc(sizeof(char) * (ii - n + strlen(str)));
+			arr = malloc(sizeof(char) * (ii - n + strlen(str) + 2));
 			while (n != ii)
 			{
 				arr[m] = env[i][n];

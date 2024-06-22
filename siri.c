@@ -17,7 +17,7 @@ int main(int ac, char **av __attribute__((unused)), char **env)
 	char str[512];
 	char **arrs;
 	int gtline = 0;
-	int pid = 0, w = 0, isfile = 0;
+	int pid = 0, w = 0, isfile = 1;
 	char *new_arr[] = {NULL, NULL};
 	struct stat st;
 
